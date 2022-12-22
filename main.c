@@ -12,27 +12,26 @@
 #include "UART.h"
 #include "queue.h"
 #include "at_command.h"
+#define LAST_CMD_CHAR '\n'
 
+volatile uint8_t interrupt_flag_100ms = 0; 
+volatile uint8_t complete_command_received = 0; 
 
-volatile uint8_t interrupt_flag_100ms = 0; //will be set to one every 100ms by timer0 indicating that we should read a sample from ADC
-volatile uint8_t complete_command_received = 0; // set to 1 when a complete command has been received by UART master
-
-char received_command[MAX_COMMADN_SIZE]; //store command received by master
-Queue temperature_buffer; //define circular buffer for temperature
+char received_command[MAX_COMMADN_SIZE]; 
+Queue temperature_buffer; 
 
 
 int main(void)
 {
-    /*initialization*/
+    
 	timer0_initializeCTC();
 	adc_init();
 	
 	uint16_t adc_result = 0;
 	float raw_temp = 0.0;
     float filtered_temp = 0.0;
-    
-	/*create temperature circular queue buffer and initialize it*/
-	create_buffer(&temperature_buffer); //initialize the temperature buffer
+	
+	create_buffer(&temperature_buffer); 
 	
 	while (1) 
     {
@@ -41,7 +40,7 @@ int main(void)
 			adc_result = get_adc_result();
 			raw_temp = calculate_temperature(adc_result);
 			filtered_temp = filter_temperature(raw_temp);
-			append_element(&temperature_buffer, filtered_temp); // QUEUE filtered temp to the buffer
+			append_element(&temperature_buffer, filtered_temp); 
 			interrupt_flag_100ms = 0 ;
 		}
 		
@@ -60,7 +59,7 @@ int main(void)
 /*	get executed once every 100ms to ensure a10HZ sampling rate of ADC */
 ISR(TIMER0_COMP_vect)
 {
-	interrupt_flag_100ms = 1; //set the flag indicating that 100ms have passed
+	interrupt_flag_100ms = 1; 
 }
 
 
@@ -70,7 +69,7 @@ ISR(USART_RXC_vect)
 	static uint8_t character_counter = 0;
 	received_command[character_counter] = UDR; //save adc result to the array
 	
-	if(received_command[character_counter] == '\n') // if the end of the command was encountered
+	if(received_command[character_counter] == LAST_CMD_CHAR) 
 	{
 		complete_command_received = 1;
 		character_counter = 0 ;

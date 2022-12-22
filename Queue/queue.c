@@ -28,17 +28,16 @@ void append_element(Queue* p_buffer, BUFFER_ENTRY element)
 	{
 		p_buffer->size++;
 	}
-	p_buffer->temp_buffer[p_buffer->rear] = element; //append new temperature at rear
+	p_buffer->temp_buffer[p_buffer->rear] = element; 
 }
 
 
 float dequeue_element(Queue* p_buffer) {
 	
-	if (p_buffer->size == 0) //if the queue is empty
+	if (p_buffer->size == 0) 
 	{
 		return -1;
 	}
-	/*if not return the front element and update front*/
 	BUFFER_ENTRY temp;
 	temp = p_buffer->temp_buffer[p_buffer->front];
 	p_buffer->front = (p_buffer->front + 1) % BUFFER_SIZE; //update front in a circular way

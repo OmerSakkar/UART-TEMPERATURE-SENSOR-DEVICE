@@ -12,15 +12,15 @@ extern Queue temperature_buffer;
 void at_handle_command(char* command )
 {
 	
-	if ( strcmp(command, "AT+TEMP?\n") == 0 ) // if command == "AT+temp\n"
+	if ( strcmp(command, "AT+TEMP?\n") == 0 ) 
 	{
 		float temp[BUFFER_SIZE]; 
 		unsigned char* temp_in_char;
-		int buffer_length = temperature_buffer.size; //number of elements currently in the buffer
+		int buffer_length = temperature_buffer.size; 
 		 
 		for(uint8_t i = 0; i < buffer_length; i++)
 		{
-			temp [i] = dequeue_element(&temperature_buffer); //empty buffer in temp array
+			temp [i] = dequeue_element(&temperature_buffer);
 		}
 		
 		//reply "+TEMP:"
