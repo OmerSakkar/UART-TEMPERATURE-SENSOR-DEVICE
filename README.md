@@ -21,6 +21,7 @@ The device starts taking samples right after it's powered up. Each obtained ADC 
 
 For the AT command handler, the UART is configured to interrupt at every message receiving event. Received charcters get saved to a buffer one by one until the end of the command is encounterd. At this point, the buffer containing the command is sent to a a specific function where it's handled.
 
+NOTE: Hardware specific drivers in this project are NOI generic and was specifically written for the purpose of this project. 
 
 ## How To Build And Run
 Code was written completely on the [Microchip Studio for AVR](https://www.microchip.com/en-us/tools-resources/develop/microchip-studio) IDE. The only nessecary step is choosing the right microcontroller (Atmega32 in this case) and your good to go.
