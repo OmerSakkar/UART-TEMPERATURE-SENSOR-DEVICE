@@ -4,6 +4,7 @@
  * Created: 4/9/2022 6:29:56 PM
  *  Author: Omer Sakkar
  */ 
+
 #include "NTC_temprature.h"
  
  uint16_t temprature_buffre[AVERAGE_COUNT];
@@ -34,7 +35,6 @@ float calculate_temperature(uint16_t adc_result	)
 }
 
 
-/*This function uses moving average filter to filter temprature results */
 float filter_temperature(float raw_temperature)
 {
 	 static uint8_t oldest_sample = 0; 

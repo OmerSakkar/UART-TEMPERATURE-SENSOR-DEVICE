@@ -16,7 +16,7 @@
 #include "string.h" //strcmp
 
 #define MAX_COMMADN_SIZE 20 //can't be over 255 or you need to change the type of the counter in the UART receive interrupt
-
+#define BUFF_REQ_CMD "AT+TEMP?\n"
 
 /**
    @brief   parse at commands and take the appropriate action,
@@ -24,6 +24,7 @@
    @return  none
 */
 void at_handle_command(char* command );
+
 
 
 

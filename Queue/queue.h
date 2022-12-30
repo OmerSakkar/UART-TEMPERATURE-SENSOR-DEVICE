@@ -9,14 +9,14 @@
 #ifndef QUEUE_H_
 #define QUEUE_H_
 
-#define BUFFER_SIZE 10
-#define BUFFER_ENTRY float // buffer element will be of type float (temperature), Change this according to your needs
+#define BUFFER_CAPACITY 10
+#define BUFFER_ENTRY float 
 
 typedef struct queue{
-	int front; //stores the index of the first-in element in the array
-	int rear; //stores the index of the last element
+	int front;
+	int rear; 
 	int size ;
-	BUFFER_ENTRY temp_buffer[BUFFER_SIZE] ;
+	BUFFER_ENTRY temp_buffer[BUFFER_CAPACITY] ;
 } Queue;
 
 
@@ -45,5 +45,7 @@ void append_element(Queue* p_buffer, BUFFER_ENTRY element);
    @return  the dequeued element
 */
 BUFFER_ENTRY dequeue_element(Queue* p_buffer);
+
+bool is_buf_empty(Queue* p_buffer);
 
 #endif /* QUEUE_H_ */
